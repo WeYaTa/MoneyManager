@@ -51,6 +51,7 @@
             this.Income = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Expense = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblHello = new System.Windows.Forms.Label();
+            this.deleteMyAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -99,7 +100,8 @@
             // accountToolStripMenuItem
             // 
             this.accountToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.manageProfileToolStripMenuItem});
+            this.manageProfileToolStripMenuItem,
+            this.deleteMyAccountToolStripMenuItem});
             this.accountToolStripMenuItem.Name = "accountToolStripMenuItem";
             this.accountToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.accountToolStripMenuItem.Text = "Account";
@@ -107,7 +109,7 @@
             // manageProfileToolStripMenuItem
             // 
             this.manageProfileToolStripMenuItem.Name = "manageProfileToolStripMenuItem";
-            this.manageProfileToolStripMenuItem.Size = new System.Drawing.Size(185, 26);
+            this.manageProfileToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.manageProfileToolStripMenuItem.Text = "Manage Profile";
             this.manageProfileToolStripMenuItem.Click += new System.EventHandler(this.manageProfileToolStripMenuItem_Click);
             // 
@@ -132,6 +134,7 @@
             this.balanceChartToolStripMenuItem.Name = "balanceChartToolStripMenuItem";
             this.balanceChartToolStripMenuItem.Size = new System.Drawing.Size(314, 26);
             this.balanceChartToolStripMenuItem.Text = "Balance Chart";
+            this.balanceChartToolStripMenuItem.Click += new System.EventHandler(this.balanceChartToolStripMenuItem_Click);
             // 
             // splitContainer1
             // 
@@ -293,6 +296,13 @@
             this.lblHello.Text = "Hello, ";
             this.lblHello.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // deleteMyAccountToolStripMenuItem
+            // 
+            this.deleteMyAccountToolStripMenuItem.Name = "deleteMyAccountToolStripMenuItem";
+            this.deleteMyAccountToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.deleteMyAccountToolStripMenuItem.Text = "Delete My Account";
+            this.deleteMyAccountToolStripMenuItem.Click += new System.EventHandler(this.deleteMyAccountToolStripMenuItem_Click);
+            // 
             // FrmMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -348,5 +358,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Income;
         private System.Windows.Forms.DataGridViewTextBoxColumn Expense;
+        private System.Windows.Forms.ToolStripMenuItem deleteMyAccountToolStripMenuItem;
     }
 }

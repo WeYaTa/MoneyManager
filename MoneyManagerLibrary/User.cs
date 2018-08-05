@@ -9,7 +9,7 @@ namespace MoneyManagerLibrary
     public class User
     {
         public string ID { get; set; }
-        public string  Nama { get; set; }
+        public string  Name { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string Question { get; set; }
@@ -18,7 +18,7 @@ namespace MoneyManagerLibrary
         public User(string id, string nama, string pass, string email, string question = null, string ans = null)
         {
             ID = id;
-            Nama = nama;
+            Name = nama;
             Password = pass;
             Email = email;
             Question = question;

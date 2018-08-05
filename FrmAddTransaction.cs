@@ -100,15 +100,30 @@ namespace MoneyManager
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (!EditMode)
+            if (comboBox1.SelectedIndex == 0)
             {
-                double amount = double.Parse(this.txtBoxAmount.Text.Trim('.'));
-                try
+                MessageBox.Show("Please select a category !", "Invalid Category", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
+            else
+            {
+                if (!EditMode)
                 {
-                    if ((comboBox1.SelectedIndex == 1 && amount > InCat[comboBox2.SelectedIndex]) || (comboBox1.SelectedIndex == 2 && amount > ExCat[comboBox2.SelectedIndex]))
+                    double amount = double.Parse(this.txtBoxAmount.Text.Trim('.'));
+                    try
                     {
-                        DialogResult x = MessageBox.Show("This amount seems to big for you! \n Proceed right away?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (x == DialogResult.Yes)
+                        if ((comboBox1.SelectedIndex == 1 && amount > InCat[comboBox2.SelectedIndex]) || (comboBox1.SelectedIndex == 2 && amount > ExCat[comboBox2.SelectedIndex]))
+                        {
+                            DialogResult x = MessageBox.Show("This amount seems to big for you! \n Proceed right away?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (x == DialogResult.Yes)
+                            {
+                                using (var transdao = new TransactionDAO())
+                                {
+                                    transdao.Insert(new Transaction(dtpAdd.Value, comboBox1.Text, comboBox2.Text, amount, 0, txtNote.Text, user.ID.ToString()));
+                                }
+                                MessageBox.Show("Transaction has been successfuly added", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        else
                         {
                             using (var transdao = new TransactionDAO())
                             {
@@ -116,48 +131,39 @@ namespace MoneyManager
                             }
                             MessageBox.Show("Transaction has been successfuly added", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
+
+                        this.Close();
                     }
-                    else
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+                else
+                {
+                    try
                     {
                         using (var transdao = new TransactionDAO())
                         {
-                            transdao.Insert(new Transaction(dtpAdd.Value, comboBox1.Text, comboBox2.Text, amount, 0, txtNote.Text, user.ID.ToString()));
+                            DialogResult = MessageBox.Show("Confirm changes?", "Update Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (DialogResult == DialogResult.Yes)
+                            {
+                                Edit.Amount = Double.Parse(txtBoxAmount.Text);
+                                Edit.Category = comboBox1.SelectedItem.ToString();
+                                Edit.SubCategory = comboBox2.SelectedItem.ToString();
+                                Edit.Note = txtNote.Text;
+                                transdao.Update(Edit);
+                                MessageBox.Show("Update Success !", "Update Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
-                        MessageBox.Show("Transaction has been successfuly added", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            else
-            {
-                try
-                {
-                    using (var transdao = new TransactionDAO())
+                    catch (Exception ex)
                     {
-                        DialogResult = MessageBox.Show("Confirm changes?" , "Update Confirmation", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
-                        if (DialogResult == DialogResult.Yes)
-                        {
-                            Edit.Amount = Double.Parse(txtBoxAmount.Text);
-                            Edit.Category = comboBox1.SelectedItem.ToString();
-                            Edit.SubCategory = comboBox2.SelectedItem.ToString();
-                            Edit.Note = txtNote.Text;
-                            transdao.Update(Edit);
-                            MessageBox.Show("Update Success !", "Update Info", MessageBoxButtons.OK,MessageBoxIcon.Information);
-                        }
+
+                        throw ex;
                     }
                 }
-                catch (Exception ex)
-                {
-
-                    throw ex;
-                }
             }
-            
 
         }
 

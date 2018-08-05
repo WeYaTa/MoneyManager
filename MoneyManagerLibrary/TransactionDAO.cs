@@ -301,6 +301,31 @@ namespace MoneyManagerLibrary
             return result;
         }
 
+        public int DeleteAllTransactionsByID(string id)
+        {
+            int result = 0;
+            try
+            {
+                
+
+                string sqlString = @"delete transactionmm where ID = @id";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
         public void Dispose()
         {
             if (conn != null) conn.Close();

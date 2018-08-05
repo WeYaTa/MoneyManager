@@ -161,80 +161,89 @@ namespace MoneyManager
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            dgvData.DataSource = null;
-            List<Transaction> listFilter = new List<Transaction>();
-
-            if (checkBoxCategory.Checked == true && checkBoxSubCat.Checked == false && checkBoxRange.Checked == false)
+            if (checkBoxRange.Checked == true && txtRange1.Text.Trim() != "" && txtRange2.Text.Trim() != "" && Double.Parse(txtRange1.Text) > Double.Parse(txtRange2.Text))
             {
-                foreach (var item in listAwal)
-                {
-                    if (item.Category == coBoxCategory.SelectedItem.ToString())
-                    {
-                        listFilter.Add(item);
-                    }
-                }
-                dgvData.DataSource = listFilter;
-            }
-            else if (checkBoxSubCat.Checked == true && checkBoxRange.Checked == false)
-            {
-                foreach (var item in listAwal)
-                {
-                    if (item.SubCategory == coBoxSubCat.SelectedItem.ToString())
-                    {
-                        listFilter.Add(item);
-                    }
-                }
-                dgvData.DataSource = listFilter;
-            }
-            else if (checkBoxCategory.Checked == false && checkBoxSubCat.Checked == false && checkBoxRange.Checked == true)
-            {
-                using (var transdao = new TransactionDAO())
-                {
-                    listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
-                }
-                dgvData.DataSource = listFilter;
-            }
-            else if (checkBoxCategory.Checked == true && checkBoxSubCat.Checked == false && checkBoxRange.Checked == true)
-            {
-                List<Transaction> list = new List<Transaction>();
-                using (var transdao = new TransactionDAO())
-                {
-                    listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
-                }
-
-                foreach (var item in listFilter)
-                {
-                    if (item.Category == coBoxCategory.SelectedItem.ToString())
-                    {
-                        list.Add(item);
-                    }
-                }
-                dgvData.DataSource = list;
-            }
-            else if (checkBoxSubCat.Checked == true && checkBoxRange.Checked == true)
-            {
-                List<Transaction> list = new List<Transaction>();
-                using (var transdao = new TransactionDAO())
-                {
-                    listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
-                }
-
-                foreach (var item in listFilter)
-                {
-                    if (item.SubCategory == coBoxSubCat.SelectedItem.ToString())
-                    {
-                        list.Add(item);
-                    }
-                }
-                dgvData.DataSource = list;
+                MessageBox.Show("Range should start with smaller number", "Invalid Range",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             else
             {
-                
-                dgvData.DataSource = listAwal;
-                MessageBox.Show("Please input the criteria you want to find ! (Use the checkboxes)", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                dgvData.DataSource = null;
+                List<Transaction> listFilter = new List<Transaction>();
+
+                if (checkBoxCategory.Checked == true && checkBoxSubCat.Checked == false && checkBoxRange.Checked == false)
+                {
+                    foreach (var item in listAwal)
+                    {
+                        if (item.Category == coBoxCategory.SelectedItem.ToString())
+                        {
+                            listFilter.Add(item);
+                        }
+                    }
+                    dgvData.DataSource = listFilter;
+                }
+                else if (checkBoxSubCat.Checked == true && checkBoxRange.Checked == false)
+                {
+                    foreach (var item in listAwal)
+                    {
+                        if (item.SubCategory == coBoxSubCat.SelectedItem.ToString())
+                        {
+                            listFilter.Add(item);
+                        }
+                    }
+                    dgvData.DataSource = listFilter;
+                }
+                else if (checkBoxCategory.Checked == false && checkBoxSubCat.Checked == false && checkBoxRange.Checked == true)
+                {
+                    using (var transdao = new TransactionDAO())
+                    {
+                        listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
+                    }
+                    dgvData.DataSource = listFilter;
+                }
+                else if (checkBoxCategory.Checked == true && checkBoxSubCat.Checked == false && checkBoxRange.Checked == true)
+                {
+                    List<Transaction> list = new List<Transaction>();
+                    using (var transdao = new TransactionDAO())
+                    {
+                        listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
+                    }
+
+                    foreach (var item in listFilter)
+                    {
+                        if (item.Category == coBoxCategory.SelectedItem.ToString())
+                        {
+                            list.Add(item);
+                        }
+                    }
+                    dgvData.DataSource = list;
+                }
+                else if (checkBoxSubCat.Checked == true && checkBoxRange.Checked == true)
+                {
+                    List<Transaction> list = new List<Transaction>();
+                    using (var transdao = new TransactionDAO())
+                    {
+                        listFilter = transdao.GetTransactionsByRange(DateTime.Parse(Date), user.ID, Double.Parse(txtRange1.Text), Double.Parse(txtRange2.Text));
+                    }
+
+                    foreach (var item in listFilter)
+                    {
+                        if (item.SubCategory == coBoxSubCat.SelectedItem.ToString())
+                        {
+                            list.Add(item);
+                        }
+                    }
+                    dgvData.DataSource = list;
+                }
+                else
+                {
+
+                    dgvData.DataSource = listAwal;
+                    MessageBox.Show("Please input the criteria you want to find ! (Use the checkboxes)", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                lblResult.Text = "Results : " + dgvData.Rows.Count.ToString() + " Row(s)";
+
             }
-            lblResult.Text = "Results : " + dgvData.Rows.Count.ToString() + " Row(s)";
         }
 
         private void txtRange1_TextChanged(object sender, EventArgs e)

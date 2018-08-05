@@ -80,7 +80,7 @@ namespace MoneyManagerLibrary
                     cmd.CommandText = sqlString;
                     cmd.Parameters.Clear();
                     cmd.Parameters.AddWithValue("@id", user.ID);
-                    cmd.Parameters.AddWithValue("@name", user.Nama);
+                    cmd.Parameters.AddWithValue("@name", user.Name);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@question", user.Question);
@@ -150,6 +150,83 @@ namespace MoneyManagerLibrary
                                 reader["answer"]?.ToString());
                         }
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public int UpdatePassword(User user)
+        {
+            int result = 0;
+            try
+            {
+
+                string sqlString = @"update usermm set Password = @pass
+                                     where ID = @id";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id",user.ID);
+                    cmd.Parameters.AddWithValue("@pass", user.Password);
+                    
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public int Update(User user)
+        {
+            int result = 0;
+            try
+            {
+
+                string sqlString = @"update usermm set Name = @name, Email = @email
+                                     where ID = @id";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id", user.ID);
+                    cmd.Parameters.AddWithValue("@name", user.Name);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
+
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public int Delete(User user)
+        {
+            int result = 0;
+            try
+            {
+              
+                string sqlString = @"delete usermm where ID = @id";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id", user.ID);
+
+                    result = cmd.ExecuteNonQuery();
                 }
             }
             catch (Exception ex)

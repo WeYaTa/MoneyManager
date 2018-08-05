@@ -206,6 +206,7 @@
             // FrmAddTransaction
             // 
             this.ClientSize = new System.Drawing.Size(459, 353);
+            this.ControlBox = false;
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lblTextCount);
             this.Controls.Add(this.label7);

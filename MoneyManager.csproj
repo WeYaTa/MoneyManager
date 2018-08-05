@@ -91,11 +91,23 @@
     <Compile Include="FrmAddTransaction.Designer.cs">
       <DependentUpon>FrmAddTransaction.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmBalanceChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBalanceChart.Designer.cs">
+      <DependentUpon>FrmBalanceChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmChangePassword.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FrmChangePassword.Designer.cs">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDeleteAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDeleteAccount.Designer.cs">
+      <DependentUpon>FrmDeleteAccount.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmDetailTransaksi.cs">
       <SubType>Form</SubType>
@@ -144,8 +156,14 @@
     <EmbeddedResource Include="FrmAddTransaction.resx">
       <DependentUpon>FrmAddTransaction.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmBalanceChart.resx">
+      <DependentUpon>FrmBalanceChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmChangePassword.resx">
       <DependentUpon>FrmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDeleteAccount.resx">
+      <DependentUpon>FrmDeleteAccount.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmDetailTransaksi.resx">
       <DependentUpon>FrmDetailTransaksi.cs</DependentUpon>

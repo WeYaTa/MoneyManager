@@ -40,13 +40,14 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.checkBoxShowPass = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 147);
+            this.label1.Location = new System.Drawing.Point(25, 162);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(159, 17);
             this.label1.TabIndex = 0;
@@ -55,7 +56,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 189);
+            this.label2.Location = new System.Drawing.Point(25, 190);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(160, 17);
             this.label2.TabIndex = 1;
@@ -64,7 +65,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 234);
+            this.label3.Location = new System.Drawing.Point(25, 215);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(160, 17);
             this.label3.TabIndex = 2;
@@ -72,23 +73,25 @@
             // 
             // txtOldPass
             // 
-            this.txtOldPass.Location = new System.Drawing.Point(195, 144);
+            this.txtOldPass.Location = new System.Drawing.Point(195, 159);
             this.txtOldPass.Name = "txtOldPass";
             this.txtOldPass.Size = new System.Drawing.Size(247, 22);
             this.txtOldPass.TabIndex = 3;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(195, 186);
+            this.txtPassword.Location = new System.Drawing.Point(195, 187);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(247, 22);
             this.txtPassword.TabIndex = 4;
             this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // txtRetypePass
             // 
-            this.txtRetypePass.Location = new System.Drawing.Point(195, 234);
+            this.txtRetypePass.Location = new System.Drawing.Point(195, 215);
             this.txtRetypePass.Name = "txtRetypePass";
+            this.txtRetypePass.PasswordChar = '*';
             this.txtRetypePass.Size = new System.Drawing.Size(247, 22);
             this.txtRetypePass.TabIndex = 5;
             this.txtRetypePass.TextChanged += new System.EventHandler(this.txtReType_TextChanged);
@@ -98,7 +101,7 @@
             this.Lbl_PassInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Lbl_PassInfo.AutoSize = true;
             this.Lbl_PassInfo.ForeColor = System.Drawing.Color.Red;
-            this.Lbl_PassInfo.Location = new System.Drawing.Point(448, 234);
+            this.Lbl_PassInfo.Location = new System.Drawing.Point(449, 218);
             this.Lbl_PassInfo.Name = "Lbl_PassInfo";
             this.Lbl_PassInfo.Size = new System.Drawing.Size(85, 17);
             this.Lbl_PassInfo.TabIndex = 62;
@@ -110,7 +113,7 @@
             this.lblSampingPass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSampingPass.AutoSize = true;
             this.lblSampingPass.ForeColor = System.Drawing.Color.DimGray;
-            this.lblSampingPass.Location = new System.Drawing.Point(448, 189);
+            this.lblSampingPass.Location = new System.Drawing.Point(448, 190);
             this.lblSampingPass.Name = "lblSampingPass";
             this.lblSampingPass.Size = new System.Drawing.Size(79, 17);
             this.lblSampingPass.TabIndex = 60;
@@ -118,21 +121,23 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(176, 276);
+            this.btnSave.Location = new System.Drawing.Point(176, 270);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(94, 44);
             this.btnSave.TabIndex = 63;
             this.btnSave.Text = "&Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(280, 276);
+            this.btnCancel.Location = new System.Drawing.Point(280, 270);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(98, 44);
             this.btnCancel.TabIndex = 64;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // pictureBox1
             // 
@@ -141,15 +146,27 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(176, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(202, 138);
+            this.pictureBox1.Size = new System.Drawing.Size(202, 153);
             this.pictureBox1.TabIndex = 65;
             this.pictureBox1.TabStop = false;
+            // 
+            // checkBoxShowPass
+            // 
+            this.checkBoxShowPass.AutoSize = true;
+            this.checkBoxShowPass.Location = new System.Drawing.Point(195, 243);
+            this.checkBoxShowPass.Name = "checkBoxShowPass";
+            this.checkBoxShowPass.Size = new System.Drawing.Size(129, 21);
+            this.checkBoxShowPass.TabIndex = 109;
+            this.checkBoxShowPass.Text = "Show Password";
+            this.checkBoxShowPass.UseVisualStyleBackColor = true;
+            this.checkBoxShowPass.CheckedChanged += new System.EventHandler(this.checkBoxShowPass_CheckedChanged);
             // 
             // FrmChangePassword
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(546, 332);
+            this.ClientSize = new System.Drawing.Size(546, 321);
+            this.Controls.Add(this.checkBoxShowPass);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -185,5 +202,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox checkBoxShowPass;
     }
 }

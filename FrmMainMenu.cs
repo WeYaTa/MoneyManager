@@ -19,13 +19,14 @@ namespace MoneyManager
         List<string> ComboIncome = new List<string>();
         List<string> ComboExpense = new List<string>();
         List<TransactionHeader> listNonDetail = null;
+        bool logout = false;
 
         public FrmMainMenu(User ImportedUser)
         {
             InitializeComponent();
 
             this.user = ImportedUser;
-            lblHello.Text += user.Nama.ToString();
+            lblHello.Text += user.Name.ToString();
             dgvData.AutoGenerateColumns = false;
             dgvData.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             dgvData.Columns["Income"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
@@ -129,10 +130,7 @@ namespace MoneyManager
 
         private void btnLogOut_Click(object sender, EventArgs e)
         {
-
-            DialogResult dialog = MessageBox.Show("Are you sure ?", "Log Out", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-            if (dialog == DialogResult.Yes)
+            if (logout)
             {
                 this.Hide();
                 new FrmLogin().ShowDialog();
@@ -140,16 +138,38 @@ namespace MoneyManager
             }
             else
             {
-                //back to menu
+                DialogResult dialog = MessageBox.Show("Are you sure ?", "Log Out", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                if (dialog == DialogResult.Yes)
+                {
+                    this.Hide();
+                    new FrmLogin().ShowDialog();
+                    this.Close();
+                }
+                else
+                {
+                    //back to menu
+                }
             }
+            
 
         }
 
         private void manageProfileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
-            new FrmManageProfile().ShowDialog();
-            this.Show();
+            FrmManageProfile form = new FrmManageProfile(user);
+            logout = form.Run();
+            if (logout)
+            {
+                MessageBox.Show("Logging Out is required after updating data!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnLogOut_Click(null,null);
+            }
+            else
+            {
+                this.Show();
+            }
+            
         }
 
         private void FrmMainMenu_Resize(object sender, EventArgs e)
@@ -197,6 +217,28 @@ namespace MoneyManager
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void balanceChartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new FrmBalanceChart(user, listNonDetail).ShowDialog();
+            this.Show();
+        }
+
+        private void deleteMyAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FrmDeleteAccount form = new FrmDeleteAccount(user);
+            if (form.Run())
+            {
+                new FrmLogin().ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                this.Show();
+            }
         }
     }
 
