@@ -32,11 +32,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtOldPass = new System.Windows.Forms.TextBox();
+            this.txtPassword = new System.Windows.Forms.TextBox();
+            this.txtRetypePass = new System.Windows.Forms.TextBox();
             this.Lbl_PassInfo = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.lblSampingPass = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -70,26 +70,28 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Confirm New Password :";
             // 
-            // textBox1
+            // txtOldPass
             // 
-            this.textBox1.Location = new System.Drawing.Point(195, 144);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(247, 22);
-            this.textBox1.TabIndex = 3;
+            this.txtOldPass.Location = new System.Drawing.Point(195, 144);
+            this.txtOldPass.Name = "txtOldPass";
+            this.txtOldPass.Size = new System.Drawing.Size(247, 22);
+            this.txtOldPass.TabIndex = 3;
             // 
-            // textBox2
+            // txtPassword
             // 
-            this.textBox2.Location = new System.Drawing.Point(195, 186);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(247, 22);
-            this.textBox2.TabIndex = 4;
+            this.txtPassword.Location = new System.Drawing.Point(195, 186);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Size = new System.Drawing.Size(247, 22);
+            this.txtPassword.TabIndex = 4;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
-            // textBox3
+            // txtRetypePass
             // 
-            this.textBox3.Location = new System.Drawing.Point(195, 234);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(247, 22);
-            this.textBox3.TabIndex = 5;
+            this.txtRetypePass.Location = new System.Drawing.Point(195, 234);
+            this.txtRetypePass.Name = "txtRetypePass";
+            this.txtRetypePass.Size = new System.Drawing.Size(247, 22);
+            this.txtRetypePass.TabIndex = 5;
+            this.txtRetypePass.TextChanged += new System.EventHandler(this.txtReType_TextChanged);
             // 
             // Lbl_PassInfo
             // 
@@ -103,16 +105,16 @@
             this.Lbl_PassInfo.Text = "Pass Wrong";
             this.Lbl_PassInfo.Visible = false;
             // 
-            // label17
+            // lblSampingPass
             // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label17.AutoSize = true;
-            this.label17.ForeColor = System.Drawing.Color.DimGray;
-            this.label17.Location = new System.Drawing.Point(448, 189);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(79, 17);
-            this.label17.TabIndex = 60;
-            this.label17.Text = "*MIN 6 digit";
+            this.lblSampingPass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSampingPass.AutoSize = true;
+            this.lblSampingPass.ForeColor = System.Drawing.Color.DimGray;
+            this.lblSampingPass.Location = new System.Drawing.Point(448, 189);
+            this.lblSampingPass.Name = "lblSampingPass";
+            this.lblSampingPass.Size = new System.Drawing.Size(79, 17);
+            this.lblSampingPass.TabIndex = 60;
+            this.lblSampingPass.Text = "*MIN 6 digit";
             // 
             // btnSave
             // 
@@ -152,10 +154,10 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.Lbl_PassInfo);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblSampingPass);
+            this.Controls.Add(this.txtRetypePass);
+            this.Controls.Add(this.txtPassword);
+            this.Controls.Add(this.txtOldPass);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -175,11 +177,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtOldPass;
+        private System.Windows.Forms.TextBox txtPassword;
+        private System.Windows.Forms.TextBox txtRetypePass;
         private System.Windows.Forms.Label Lbl_PassInfo;
-        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label lblSampingPass;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.PictureBox pictureBox1;

@@ -23,11 +23,48 @@ namespace MoneyManagerLibrary
             }
         }
 
+        public Transaction GetOneSpecificTransaction(string ID,DateTime date, string cat, string sub, double amount, string note = null) {
+            Transaction result = null;
+            try
+            {
+                string sqlString = @"select * from transactionmm where ID = @id and Date = @date and Category = @cat and subcategory = @sub and Amount = @amount and Note = @note";
+                using (SqlCommand cmd = new SqlCommand(sqlString, conn))
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@id", ID);
+                    cmd.Parameters.AddWithValue("@date", date);
+                    cmd.Parameters.AddWithValue("@cat", cat);
+                    cmd.Parameters.AddWithValue("@sub", sub);
+                    cmd.Parameters.AddWithValue("@amount", amount);
+                    cmd.Parameters.AddWithValue("@note", note);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            DateTime Date = DateTime.Parse(reader["Date"].ToString());
+                            string Category = reader["category"].ToString();
+                            string SubCategory = reader["subcategory"].ToString();
+                            double Amount = Double.Parse(reader["amount"].ToString());
+                            string Note = reader["note"]?.ToString();
+                            string id = reader["ID"]?.ToString();
+                            int Nomor = Int32.Parse(reader["Nomor"].ToString());
+                            result = new Transaction(Date, Category,SubCategory, Amount, Nomor ,Note, id);    
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+        
+        
         public List<Transaction> GetAllTransactionDataByID(string id)
         {
             List<Transaction> list = new List<Transaction>();
 
-            //string connString = @"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = DBMoneyManager; Integrated Security = True;";
             try
             {
 
@@ -50,7 +87,8 @@ namespace MoneyManagerLibrary
                         double amount = Double.Parse(reader["amount"].ToString());
                         string note = reader["note"]?.ToString();
                         string Id = reader["ID"]?.ToString();
-                        list.Add(new Transaction(date, cat, sub, amount, note, Id));
+                        int nomor = Int32.Parse(reader["Nomor"].ToString());
+                        list.Add(new Transaction(date, cat, sub, amount, nomor, note, Id));
                     }
                 }
                 reader.Close();
@@ -159,7 +197,8 @@ namespace MoneyManagerLibrary
                         double amount = Double.Parse(reader["amount"].ToString());
                         string note = reader["note"]?.ToString();
                         string Id = reader["ID"]?.ToString();
-                        list.Add(new Transaction(dt, cat, sub, amount, note, Id));
+                        int nomor = Int32.Parse(reader["nomor"].ToString());
+                        list.Add(new Transaction(dt, cat, sub, amount, nomor, note, Id));
                     }
                 }
                 reader.Close();
@@ -173,7 +212,6 @@ namespace MoneyManagerLibrary
 
             return list;
         }
-
 
         public int Insert(Transaction trans)
         {
@@ -196,6 +234,63 @@ namespace MoneyManagerLibrary
                     cmd.Parameters.AddWithValue("@amount", trans.Amount);
                     cmd.Parameters.AddWithValue("@note", trans.Note);
                     cmd.Parameters.AddWithValue("@id", trans.ID);
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public int Update(Transaction after)
+        {
+            int result = 0;
+            try
+            {
+             
+                string sqlString = @"update transactionmm set Category = @category, SubCategory = @subcategory, Amount = @amount , Note = @note
+                                     where Nomor = @nomor";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@nomor", after.Nomor);
+                    cmd.Parameters.AddWithValue("@category", after.Category);
+                    cmd.Parameters.AddWithValue("@subcategory", after.SubCategory);
+                    cmd.Parameters.AddWithValue("@amount", after.Amount);
+                    cmd.Parameters.AddWithValue("@note", after.Note);
+                    cmd.Parameters.AddWithValue("@id", after.ID);
+
+                    result = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        public int Delete(Transaction del)
+        {
+            int result = 0;
+            try
+            {
+                //string pureSqlString = 
+                //    @"insert into jurusan values ('" + 
+                //        jurusan.Kode + "', '" + jurusan.Keterangan + "')";
+
+                string sqlString = @"delete transactionmm where nomor = @nomor";
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = sqlString;
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.AddWithValue("@nomor", del.Nomor);
+
                     result = cmd.ExecuteNonQuery();
                 }
             }

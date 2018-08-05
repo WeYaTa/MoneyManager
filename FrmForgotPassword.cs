@@ -33,6 +33,7 @@ namespace MoneyManager
                 lblQuestion.Enabled = false;
                 Lbl_Question.Enabled = false;
                 lblAnswer.Enabled = false;
+                lblSampingID.Text = "";
             }
         }
 
@@ -43,6 +44,7 @@ namespace MoneyManager
                 txtEmail.Enabled = false;
                 lblEmail.Enabled = false;
                 lblEmailDesc.Enabled = false;
+                lblSampingEmail.Text = "";
                 //
                 txtAnswer.Enabled = true;
                 txtID.Enabled = true;
@@ -66,30 +68,6 @@ namespace MoneyManager
             return match.Success;
         }
 
-        private void txtEmail_Leave(object sender, EventArgs e)
-        {
-            using (var userdao = new UserDAO())
-            {
-                if (lblSampingEmail.Text == "Invalid")
-                {
-                    if (!EmailIsValid(this.txtEmail.Text))
-                    {
-                        MessageBox.Show("Please type a valid email !", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else if (userdao.GetUserDataByEmail(this.txtEmail.Text) == null)
-                    {
-                        MessageBox.Show("This email was not registered !", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please type a valid email !", "Invalid Email", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtEmail.Focus();
-                }
-            }
-
-        }
-
         private void txtEmail_TextChanged(object sender, EventArgs e)
         {
             using (var userdao = new UserDAO())
@@ -110,43 +88,31 @@ namespace MoneyManager
 
         private void txtID_Leave(object sender, EventArgs e)
         {
-            if (lblSampingID.Text == "Invalid")
-            {
-                if (txtID.TextLength < 6)
-                {
-                    MessageBox.Show("ID must be at least 6 characters", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else if (txtID.Text.Contains(" "))
-                {
-                    MessageBox.Show("ID must NOT contain spaces", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("A particular ID doesn't exists", "Invalid ID", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                txtID.Focus();
-            }
-            else
+            try
             {
                 using (var userdao = new UserDAO())
                 {
-                    User user = userdao.GetUserDataByID(txtID.Text);
-                    if (user != null)
+                    User f = userdao.GetUserDataByID(txtID.Text.Trim());
+                    if (lblSampingID.Text == "Valid")
                     {
-                        if (user.Question.ToString().Trim() == "" || user.Question.ToString() == null)
+                        if (f.Question.Trim() != "")
                         {
-                            MessageBox.Show("This ID does not have a safety question !", "No Safety Question", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            lblQuestion.Text = f.Question.Trim();
                         }
                         else
                         {
-                            lblQuestion.Text = user.Question.ToString();
+                            MessageBox.Show("No Safety Question found !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtID.Clear();
+                            lblQuestion.Text = "{Safety Question}";
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("This ID was not registered !", "Unregistered ID", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
                 }
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
 
@@ -180,29 +146,52 @@ namespace MoneyManager
 
         private void btnEnter_Click(object sender, EventArgs e)
         {
-            try
+            if (radioButtonID.Checked == true)
             {
-                User user = null;
-                using (var userdao = new UserDAO())
+                try
                 {
-                    user = userdao.GetUserDataByID(txtID.Text);
-                    if (txtAnswer.Text == user.Answer.ToString())
+                    User user = null;
+                    using (var userdao = new UserDAO())
                     {
-                        MessageBox.Show("Your password : "+ user.Password, "Verification Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        userdao.Dispose();
-                        btnCancel_Click(null,null);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Wrong Answer!", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        user = userdao.GetUserDataByID(txtID.Text);
+                        if (user == null)
+                        {
+                            MessageBox.Show("ID not found !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            if (txtAnswer.Text == user.Answer.ToString())
+                            {
+                                MessageBox.Show("Your password : " + user.Password, "Verification Done", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                userdao.Dispose();
+                                btnCancel_Click(null, null);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Wrong Answer!", "Verification Failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
+                catch (Exception ex)
+                {
 
-                throw ex;
+                    throw ex;
+                }
             }
+            else if (radioButtonEmail.Checked == true)
+            {
+                if (lblSampingEmail.Text != "Valid")
+                {
+                    MessageBox.Show("Email not found !",this.Text, MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    txtEmail.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Email has been sent !", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            
         }
 
         private void txtAnswer_KeyPress(object sender, KeyPressEventArgs e)

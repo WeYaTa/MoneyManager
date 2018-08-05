@@ -116,7 +116,7 @@
             this.btnSearch.Location = new System.Drawing.Point(606, 135);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(202, 22);
-            this.btnSearch.TabIndex = 35;
+            this.btnSearch.TabIndex = 6;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -137,7 +137,7 @@
             this.txtRange2.Location = new System.Drawing.Point(328, 134);
             this.txtRange2.Name = "txtRange2";
             this.txtRange2.Size = new System.Drawing.Size(169, 22);
-            this.txtRange2.TabIndex = 33;
+            this.txtRange2.TabIndex = 1;
             this.txtRange2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtRange2.TextChanged += new System.EventHandler(this.txtRange2_TextChanged);
             this.txtRange2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRange2_KeyPress);
@@ -160,7 +160,7 @@
             this.txtRange1.Location = new System.Drawing.Point(142, 134);
             this.txtRange1.Name = "txtRange1";
             this.txtRange1.Size = new System.Drawing.Size(169, 22);
-            this.txtRange1.TabIndex = 31;
+            this.txtRange1.TabIndex = 0;
             this.txtRange1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.txtRange1.TextChanged += new System.EventHandler(this.txtRange1_TextChanged);
             this.txtRange1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRange1_KeyPress);
@@ -182,7 +182,7 @@
             this.btnBack.Location = new System.Drawing.Point(710, 34);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(98, 36);
-            this.btnBack.TabIndex = 30;
+            this.btnBack.TabIndex = 3;
             this.btnBack.Text = "Back";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
@@ -193,7 +193,7 @@
             this.btnRefresh.Location = new System.Drawing.Point(606, 35);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(98, 36);
-            this.btnRefresh.TabIndex = 29;
+            this.btnRefresh.TabIndex = 2;
             this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -204,9 +204,10 @@
             this.btnDelete.Location = new System.Drawing.Point(710, 84);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(98, 36);
-            this.btnDelete.TabIndex = 28;
+            this.btnDelete.TabIndex = 5;
             this.btnDelete.Text = "Delete Row";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnEdit
             // 
@@ -214,9 +215,10 @@
             this.btnEdit.Location = new System.Drawing.Point(606, 84);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(98, 36);
-            this.btnEdit.TabIndex = 27;
+            this.btnEdit.TabIndex = 4;
             this.btnEdit.Text = "Edit Row";
             this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // checkBoxSubCat
             // 
@@ -266,6 +268,7 @@
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Category,
@@ -274,9 +277,11 @@
             this.Note});
             this.dgvData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvData.Location = new System.Drawing.Point(0, 0);
+            this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
             this.dgvData.ReadOnly = true;
             this.dgvData.RowTemplate.Height = 24;
+            this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(820, 363);
             this.dgvData.TabIndex = 1;
             // 
@@ -294,7 +299,7 @@
             // 
             // Amount
             // 
-            this.Amount.HeaderText = "Amount";
+            this.Amount.HeaderText = "Amount (Rp)";
             this.Amount.Name = "Amount";
             this.Amount.ReadOnly = true;
             // 
@@ -332,10 +337,6 @@
 
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView dgvData;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
-        private System.Windows.Forms.DataGridViewTextBoxColumn SubCategory;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
         private System.Windows.Forms.CheckBox checkBoxSubCat;
         private System.Windows.Forms.CheckBox checkBoxCategory;
         private System.Windows.Forms.ComboBox coBoxCategory;
@@ -352,5 +353,9 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Label lblResult;
         private System.Windows.Forms.Label lblDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Category;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SubCategory;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Note;
     }
 }

@@ -213,6 +213,7 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Select Month : ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblTotal
             // 
@@ -247,6 +248,7 @@
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
@@ -269,13 +271,13 @@
             // 
             // Income
             // 
-            this.Income.HeaderText = "Income";
+            this.Income.HeaderText = "Income (Rp)";
             this.Income.Name = "Income";
             this.Income.ReadOnly = true;
             // 
             // Expense
             // 
-            this.Expense.HeaderText = "Expense";
+            this.Expense.HeaderText = "Expense (Rp)";
             this.Expense.Name = "Expense";
             this.Expense.ReadOnly = true;
             // 
@@ -342,9 +344,9 @@
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.Label lblHello;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Income;
         private System.Windows.Forms.DataGridViewTextBoxColumn Expense;
-        private System.Windows.Forms.Label label2;
     }
 }

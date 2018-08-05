@@ -58,7 +58,7 @@
             this.btnCancel.Location = new System.Drawing.Point(212, 263);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 31);
-            this.btnCancel.TabIndex = 31;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -74,7 +74,7 @@
             this.btnEnter.Location = new System.Drawing.Point(131, 263);
             this.btnEnter.Name = "btnEnter";
             this.btnEnter.Size = new System.Drawing.Size(75, 31);
-            this.btnEnter.TabIndex = 30;
+            this.btnEnter.TabIndex = 3;
             this.btnEnter.Text = "Enter";
             this.btnEnter.UseVisualStyleBackColor = false;
             this.btnEnter.Click += new System.EventHandler(this.btnEnter_Click);
@@ -85,7 +85,7 @@
             this.txtAnswer.Location = new System.Drawing.Point(96, 217);
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(342, 22);
-            this.txtAnswer.TabIndex = 29;
+            this.txtAnswer.TabIndex = 2;
             this.txtAnswer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAnswer_KeyPress);
             // 
             // Lbl_Question
@@ -104,7 +104,7 @@
             this.txtID.Location = new System.Drawing.Point(95, 172);
             this.txtID.Name = "txtID";
             this.txtID.Size = new System.Drawing.Size(235, 22);
-            this.txtID.TabIndex = 33;
+            this.txtID.TabIndex = 1;
             this.txtID.TextChanged += new System.EventHandler(this.txtID_TextChanged);
             this.txtID.Leave += new System.EventHandler(this.txtID_Leave);
             // 
@@ -114,9 +114,9 @@
             this.lblQuestion.Enabled = false;
             this.lblQuestion.Location = new System.Drawing.Point(95, 197);
             this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(177, 17);
+            this.lblQuestion.Size = new System.Drawing.Size(119, 17);
             this.lblQuestion.TabIndex = 35;
-            this.lblQuestion.Text = " {question that were typed}";
+            this.lblQuestion.Text = "{Safety Question}";
             this.lblQuestion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblAnswer
@@ -210,9 +210,8 @@
             this.txtEmail.Location = new System.Drawing.Point(96, 66);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(234, 22);
-            this.txtEmail.TabIndex = 43;
+            this.txtEmail.TabIndex = 0;
             this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
-            this.txtEmail.Leave += new System.EventHandler(this.txtEmail_Leave);
             // 
             // lblSampingEmail
             // 

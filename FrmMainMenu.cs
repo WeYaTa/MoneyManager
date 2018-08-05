@@ -30,6 +30,8 @@ namespace MoneyManager
             dgvData.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             dgvData.Columns["Income"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dgvData.Columns["Expense"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvData.Columns["Income"].DefaultCellStyle.Format = "n0";
+            dgvData.Columns["Expense"].DefaultCellStyle.Format = "n0";
             dgvData.DataSource = null;
 
             // Category
@@ -190,6 +192,11 @@ namespace MoneyManager
                 new FrmDetailTransaksi(user, DateTime.Parse(dgvData.CurrentCell.Value.ToString()).ToLongDateString(), ComboCat,ComboIncome,ComboExpense).ShowDialog();
                 this.Show();
             }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

@@ -28,15 +28,16 @@ namespace MoneyManager
             dgvData.AutoGenerateColumns = false;
             dgvData.ColumnHeadersDefaultCellStyle.Font = new Font(DataGridView.DefaultFont, FontStyle.Bold);
             dgvData.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dgvData.Columns["Amount"].DefaultCellStyle.Format = "n0";
             dgvData.DataSource = null;
             coBoxCategory.DataSource = cat;
             ComboIn = comboin;
             ComboEx = comboex;
+            lblDate.Text = "Transactions on : " + Date;
         }
 
         private void FrmDetailTransaksi_Load(object sender, EventArgs e)
         {
-            
             
             this.listAwal = new List<Transaction>();
             try
@@ -233,7 +234,7 @@ namespace MoneyManager
                 dgvData.DataSource = listAwal;
                 MessageBox.Show("Please input the criteria you want to find ! (Use the checkboxes)", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-           
+            lblResult.Text = "Results : " + dgvData.Rows.Count.ToString() + " Row(s)";
         }
 
         private void txtRange1_TextChanged(object sender, EventArgs e)
@@ -289,6 +290,73 @@ namespace MoneyManager
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var transdao = new TransactionDAO())
+                {
+                    if (dgvData.SelectedRows != null)
+                    {
+                        DataGridViewRow row = dgvData.CurrentRow;
+                        foreach (var item in listAwal)
+                        {
+                            if (item.SubCategory.ToString() == row.Cells[1].Value.ToString() && item.Amount.ToString() == row.Cells[2].Value.ToString() && item.Note.ToString() == row.Cells[3].Value.ToString())
+                            {
+                                DialogResult = MessageBox.Show("Are you sure you want to delete this transaction ?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (DialogResult == DialogResult.Yes)
+                                {
+                                    transdao.Delete(item);
+                                }
+                                break;
+                            }
+                        }
+                        
+                    }
+                }
+                FrmDetailTransaksi_Load(null,null);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+            
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var transdao = new TransactionDAO())
+                {
+                    if (dgvData.SelectedRows != null)
+                    {
+                        DataGridViewRow row = dgvData.CurrentRow;
+                        foreach (var item in listAwal)
+                        {
+                            if (item.SubCategory.ToString() == row.Cells[1].Value.ToString() && item.Amount.ToString() == row.Cells[2].Value.ToString() && item.Note.ToString() == row.Cells[3].Value.ToString())
+                            {
+                                this.Hide();
+                                new FrmAddTransaction(user,ComboIn,ComboEx,true,item).ShowDialog();
+                                this.Show(); 
+                            }
+                        }
+                        
+                    }
+                }
+                FrmDetailTransaksi_Load(null, null);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
         }
     }

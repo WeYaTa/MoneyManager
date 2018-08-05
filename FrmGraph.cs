@@ -15,6 +15,9 @@ namespace MoneyManager
     {
         List<string> listInSubCategory = new List<string>();
         List<string> listExSubCategory = new List<string>();
+        List<Transaction> listTransaksi = null;
+        List<Transaction> listfilter = null;
+
         User user = null;
 
         public FrmGraph(User import,List<string> comboIn, List<string> comboEx)
@@ -23,32 +26,32 @@ namespace MoneyManager
             user = import;
             listInSubCategory = comboIn;
             listExSubCategory = comboEx;
+            coBoxMonth.SelectedIndex = 0;
             
         }
 
         private void FrmGraph_Load(object sender, EventArgs e)
         {
-            fillChart();
+            
+            coBoxMonth.SelectedIndex = 0;
+            
         }
 
-        private void fillChart()
+        private void fillChart(List<Transaction> list)
         {
             incomeChart.Series["Income"].Points.Clear();
             expenseChart.Series["Expense"].Points.Clear();
             incomeChart.Titles.Clear();
             expenseChart.Titles.Clear();
 
-            List<Transaction> listTransaksi = null;
+           
             double[] arrayInAmount = new double[listInSubCategory.Count];
             double[] arrayExAmount = new double[listExSubCategory.Count];
             try
             {
-                using (var transdao = new TransactionDAO())
-                {
-                    listTransaksi = transdao.GetAllTransactionDataByID(user.ID.ToString());
-                }
+                
 
-                foreach (var item in listTransaksi)
+                foreach (var item in list)
                 {
                     if (item.Category == "Income")
                     {
@@ -103,37 +106,30 @@ namespace MoneyManager
             this.Close();
         }
 
-        private void radioButMonth_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButMonth.Checked == true)
-            {
-                coBoxMonth.Enabled = true;
-                radioButMonth.ForeColor = Color.Black;
-            }
-            else
-            {
-                coBoxMonth.Enabled = false;
-                radioButMonth.ForeColor = Color.Gray;
-            }
-        }
-
-        private void radioButSpecDate_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButSpecDate.Checked == true)
-            {
-                dtpSpecDate.Enabled = true;
-                radioButSpecDate.ForeColor = Color.Black;
-            }
-            else
-            {
-                dtpSpecDate.Enabled = false;
-                radioButSpecDate.ForeColor = Color.Gray;
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             FrmGraph_Load(null,null);
+        }
+
+        private void coBoxMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            listfilter = new List<Transaction>();
+            using (var transdao = new TransactionDAO())
+            {
+                listTransaksi = transdao.GetAllTransactionDataByID(user.ID.ToString());
+                
+            }
+
+            foreach (var item in listTransaksi)
+            {
+                if (coBoxMonth.SelectedIndex == 0 && item.Date.Month == DateTime.Today.Month) listfilter.Add(item);
+
+                else if (coBoxMonth.SelectedIndex == 1 && item.Date.Month == DateTime.Today.Month - 1) listfilter.Add(item);
+
+                else if (coBoxMonth.SelectedIndex == 2 && item.Date.Month == DateTime.Today.Month - 2) listfilter.Add(item);
+            }
+
+            fillChart(listfilter);
         }
     }
 }
